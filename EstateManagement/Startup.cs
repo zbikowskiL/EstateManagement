@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EstateManagement.Models.DataBase;
+using EstateManagement.Models.Interfaces;
+using EstateManagement.Models.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,6 +27,10 @@ namespace EstateManagement
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            var dbConnectionString = @"Server=(localdb)\MSSQLLocalDB;Database=EstateManagementDB;Trusted_Connection=True;";
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(dbConnectionString));
+            
+            services.AddScoped<IPropertyRepository, PropertyRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +56,10 @@ namespace EstateManagement
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                   name: "property",
+                   template: "{controller=Property}/{action=GetProperty}/{id?}");
 
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",

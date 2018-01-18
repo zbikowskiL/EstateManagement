@@ -7,6 +7,7 @@ namespace EstateManagement.Models
 {
     public class Adress
     {
+        
         public int AdressId { get; set; }
         public string Street { get; set; }
         public string City { get; set; }

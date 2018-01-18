@@ -7,6 +7,7 @@ namespace EstateManagement.Models
 {
     public class Property
     {
+        
         public int Id { get; set; }
         public PropertyType Type { get; set; }
         public string Description { get; set; }
