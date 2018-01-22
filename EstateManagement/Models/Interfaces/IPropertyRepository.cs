@@ -8,10 +8,10 @@ namespace EstateManagement.Models.Interfaces
     public interface IPropertyRepository
     {
         List<Property> GetAllProperties();
-        void AddProperty(Property property);  //Property AddProperty(Property property);
         Property GetProperty(int propertyId);
-        void EditProperty(Property property);
-        void DeleteProperty(int propertyId);
-        void SaveChangesInDatabase();
+        int AddProperty(Property property, Adress adress, Owner owner);
+        int UpdateProperty(Property property);
+        void DeleteProperty(Property property, Adress adress, Owner owner);
+        
     }
 }

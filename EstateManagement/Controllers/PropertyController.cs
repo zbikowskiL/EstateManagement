@@ -14,17 +14,25 @@ namespace EstateManagement.Controllers
     public class PropertyController : Controller
     {
         private readonly IPropertyRepository _propertyRepository;
+        private readonly IAddressRepository _addressRepository;
+        private readonly IOwnerRepository _ownerRepository;
 
-        public PropertyController(IPropertyRepository propertyRepository)
+        public PropertyController(IPropertyRepository propertyRepository, IAddressRepository addressRepository, IOwnerRepository ownerRepository)
         {
             _propertyRepository = propertyRepository;
+            _addressRepository = addressRepository;
+            _ownerRepository = ownerRepository;
         }
 
-        // GET: /api/getproperty?propertyId=1
+        //GET: /api/getproperty?propertyId=1
 
         [HttpGet("[action]")]
         public IActionResult GetProperty(int propertyId)
         {
+            if (propertyId <= 0)
+            {
+                return BadRequest("PropertyId can't be less than 0.");
+            }
             return new JsonResult(_propertyRepository.GetProperty(propertyId));
         }
 
@@ -36,87 +44,73 @@ namespace EstateManagement.Controllers
             return new JsonResult(_propertyRepository.GetAllProperties());
         }
 
-        //POST: /api/Property/AddProperty
+        //POST
         [HttpPost("[action]")]
-        public IActionResult AddProperty([FromBody] Property property)
+        public IActionResult AddProperty([FromBody]Property property)
         {
-                if (ModelState.IsValid)
-                {
-                    _propertyRepository.AddProperty(property);
-                    _propertyRepository.SaveChangesInDatabase();
-                    return RedirectToAction("GetAllProperties");
-                }
-            return new JsonResult(_propertyRepository.GetAllProperties());
-        }
-
-        //[HttpPost("[action]")]
-        //public IActionResult AddProperty([FromBody] Property property)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            _propertyRepository.AddProperty(property);
-        //            _propertyRepository.SaveChangesInDatabase();
-        //            return RedirectToAction("GetProperties");
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw new Exception("Something went wrong wit Added new Property: /PropertyControllerAddProperty/");
-        //    }
-        //    return new JsonResult(_propertyRepository.GetAllProperties());
-        //}
-
-        // HTTP DELETE: /api/Property/DeleteProperty
-
-        [HttpDelete("[action]")]
-        public IActionResult DeleteProperty(int propertyId)
-        {
-            try
+            if (!ModelState.IsValid)
             {
-                if (propertyId != 0)
-                {
-                    Property property = _propertyRepository.GetProperty(propertyId);
-                    _propertyRepository.DeleteProperty(propertyId);
-                    _propertyRepository.SaveChangesInDatabase();
-                    return RedirectToAction("GetAllProperties");
-                }
-               
-            }
-            catch (Exception)
-            {
-
-                throw new Exception($"Something went wrong with delete property. Check action /PropertyController/Deleteproperty/");
-                
+                return BadRequest(ModelState);
             }
 
-            return new JsonResult(_propertyRepository.GetAllProperties());
+            var owner = _ownerRepository.GetOwner(property.OwnerId);
+            if (owner == null)
+            {
+                return NotFound("Can't find owner with provided ownerId.");
+            }
 
+            var address = _addressRepository.GetAddress(property.AdressId);
+            if (address == null)
+            {
+                return NotFound("Can't find owner with provided addressId.");
+            }
+
+            _propertyRepository.AddProperty(property, address, owner);
+            return new JsonResult(property.Id);
         }
 
-        // HTTP POST: /api/Property/UpdateProperty
-
         [HttpPost("[action]")]
-        
         public IActionResult UpdateProperty([FromBody]Property property)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    _propertyRepository.EditProperty(property);
-                    _propertyRepository.SaveChangesInDatabase();
-                    return RedirectToAction("GetAllProperties");
-                }
-            }
-            catch (Exception)
-            {
-
-                throw new Exception($"Could not be update Property about id: '{property.Id}'. ");
+                return BadRequest(ModelState);
             }
 
-            return new JsonResult(_propertyRepository.GetAllProperties());
+            _propertyRepository.UpdateProperty(property);
+            return new JsonResult(property.Id);
         }
+
+        [HttpGet("action")]
+        public IActionResult DeleteProperty(int propertyId)
+        {
+            if (propertyId <= 0)
+            {
+                return BadRequest("PropertyId can't be less than 0.");
+            }
+
+            var property = _propertyRepository.GetProperty(propertyId);
+            if (property == null)
+            {
+                return NotFound($"Can't find property with provided propertyId: {propertyId}.");
+            }
+
+            var owner = _ownerRepository.GetOwner(property.OwnerId);
+            if (owner == null)
+            {
+                return NotFound($"Can't find owner with provided ownerId: {property.OwnerId}.");
+            }
+
+            var address = _addressRepository.GetAddress(property.AdressId);
+            if (address == null)
+            {
+                return NotFound($"Can't find address with provided addressId: {property.AdressId}.");
+            }
+
+            _propertyRepository.DeleteProperty(property, address, owner);
+            return new JsonResult(property.Id);
+        }
+        
     }
+
 }
