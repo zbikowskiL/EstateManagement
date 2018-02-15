@@ -24,7 +24,7 @@ namespace EstateManagement.Controllers
             _ownerRepository = ownerRepository;
         }
 
-        //GET: /api/getproperty?propertyId=1
+        //GET: /api/property/getproperty?propertyId=1
 
         [HttpGet("[action]")]
         public IActionResult GetProperty(int propertyId)
@@ -36,7 +36,7 @@ namespace EstateManagement.Controllers
             return new JsonResult(_propertyRepository.GetProperty(propertyId));
         }
 
-        //GET /api/getallproperties
+        //GET /api/property/getallproperties
 
         [HttpGet("[action]")]
         public IActionResult GetAllProperties()
