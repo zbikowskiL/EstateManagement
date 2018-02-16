@@ -22,11 +22,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\properties\properties.component.ts" />
+    <None Remove="ClientApp\app\components\properties\services\PropertiesService.ts" />
     <None Remove="ClientApp\app\services\http-properties-backend.service.ts" />
     <None Remove="ClientApp\app\services\properties-backend.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\properties\properties.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\properties\services\PropertiesService.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\http-properties-backend.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\properties-backend.service.ts" />
   </ItemGroup>
