@@ -42,5 +42,25 @@ namespace EstateManagement.Models.Repositories
             return _databaseContext.Adresses.FirstOrDefault(address => address.AdressId == addressId);
             
         }
+
+
+        public int UpdateAddress(Adress address)
+        {
+            if (address == null)
+            {
+                throw new Exception("Object Address can't be null.");
+            }
+
+            _databaseContext.Adresses.Update(address);
+            _databaseContext.SaveChanges();
+
+            return address.AdressId;
+
+        }
+
+        List<Adress> IAddressRepository.GetAllAddresses()
+        {
+            return _databaseContext.Adresses.ToList();
+        }
     }
 }

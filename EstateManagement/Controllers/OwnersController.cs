@@ -20,6 +20,23 @@ namespace EstateManagement.Controllers
             _ownerRepository = ownerRepository;
         }
 
+        [HttpGet("[action]")]
+        public IActionResult GetOwner(int ownerId)
+        {
+            if (ownerId <= 0)
+            {
+                return BadRequest($"Can't find owner with provided ownerId: {ownerId}");
+            }
+
+            return new JsonResult(_ownerRepository.GetOwner(ownerId));
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult GetAllOwners()
+        {
+            return new JsonResult(_ownerRepository.GetAllOwners());
+        }
+
         [HttpPost("[action]")]
         public IActionResult AddOwner([FromBody]Owner owner)
         {
@@ -32,16 +49,18 @@ namespace EstateManagement.Controllers
             return new JsonResult(owner.OwnerId);
         }
 
-        [HttpGet("[action]")]
-        public IActionResult GetOwner(int ownerId)
+        [HttpPut("[action]")]
+        public IActionResult UpdateOwner([FromBody]Owner owner)
         {
-            if (ownerId <= 0)
+            if (!ModelState.IsValid)
             {
-                return BadRequest($"Can't find owner with provided ownerId: {ownerId}");
+                return BadRequest(ModelState);
             }
 
-            return new JsonResult(_ownerRepository.GetOwner(ownerId));
-
+            _ownerRepository.UpdateOwner(owner);
+            return new JsonResult(owner.OwnerId);
         }
+
+        
     }
 }

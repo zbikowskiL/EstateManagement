@@ -20,6 +20,28 @@ namespace EstateManagement.Controllers
             _addressRepository = addressRepository;
         }
 
+
+        //GET  /api/addresses/getalladdresses
+        [HttpGet("[action]")]
+        public IActionResult GetAllAddresses()
+        {
+            return new JsonResult(_addressRepository.GetAllAddresses());
+        }
+
+        //GET /api/addresses/getaddress?addressId=1
+        [HttpGet("[action]")]
+        public IActionResult GetAddress(int addressId)
+        {
+            if (addressId <= 0)
+            {
+                return BadRequest($"Can't find address with provided addresId: {addressId}");
+            }
+
+            return new JsonResult(_addressRepository.GetAddress(addressId));
+
+        }
+
+        //POST api/addresses/addaddress
         [HttpPost("[action]")]
         public IActionResult AddAddress([FromBody]Adress address)
         {
@@ -32,16 +54,18 @@ namespace EstateManagement.Controllers
             return new JsonResult(address.AdressId);
         }
 
-        [HttpGet("[action]")]
-        public IActionResult GetAddress(int addressId)
+        [HttpPut("[action]")]
+        public IActionResult UpdateAddress([FromBody]Adress adress)
         {
-            if (addressId <= 0)
+            if (!ModelState.IsValid)
             {
-                return BadRequest($"Can't find address with provided addresId: {addressId}");
+                return BadRequest(ModelState);
             }
 
-            return new JsonResult(_addressRepository.GetAddress(addressId));
-
+            _addressRepository.UpdateAddress(adress);
+            return new JsonResult(adress.AdressId);
         }
+
+        
     }
 }

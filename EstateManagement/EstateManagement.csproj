@@ -22,16 +22,30 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\properties\components\property-details.component.ts" />
     <None Remove="ClientApp\app\components\properties\properties.component.ts" />
     <None Remove="ClientApp\app\components\properties\services\PropertiesService.ts" />
+    <None Remove="ClientApp\app\models\address.ts" />
+    <None Remove="ClientApp\app\models\owner.ts" />
+    <None Remove="ClientApp\app\services\addresses-backend.service.ts" />
+    <None Remove="ClientApp\app\services\http-addresses-backend.service.ts" />
+    <None Remove="ClientApp\app\services\http-owners-backend.service.ts" />
     <None Remove="ClientApp\app\services\http-properties-backend.service.ts" />
+    <None Remove="ClientApp\app\services\owners-backend.service.ts" />
     <None Remove="ClientApp\app\services\properties-backend.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\app\components\properties\properties.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\properties\components\properties.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\properties\components\property-details.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\properties\services\PropertiesService.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\address.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\owner.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\addresses-backend.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\http-addresses-backend.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\http-owners-backend.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\http-properties-backend.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\owners-backend.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\properties-backend.service.ts" />
   </ItemGroup>
 

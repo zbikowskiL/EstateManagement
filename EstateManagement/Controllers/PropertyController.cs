@@ -81,7 +81,7 @@ namespace EstateManagement.Controllers
             return new JsonResult(property.Id);
         }
 
-        [HttpGet("action")]
+        [HttpGet("[action]")]
         public IActionResult DeleteProperty(int propertyId)
         {
             if (propertyId <= 0)
@@ -95,19 +95,19 @@ namespace EstateManagement.Controllers
                 return NotFound($"Can't find property with provided propertyId: {propertyId}.");
             }
 
-            var owner = _ownerRepository.GetOwner(property.OwnerId);
-            if (owner == null)
-            {
-                return NotFound($"Can't find owner with provided ownerId: {property.OwnerId}.");
-            }
+            //var owner = _ownerRepository.GetOwner(property.OwnerId);
+            //if (owner == null)
+            //{
+            //    return NotFound($"Can't find owner with provided ownerId: {property.OwnerId}.");
+            //}
 
-            var address = _addressRepository.GetAddress(property.AdressId);
-            if (address == null)
-            {
-                return NotFound($"Can't find address with provided addressId: {property.AdressId}.");
-            }
+            //var address = _addressRepository.GetAddress(property.AdressId);
+            //if (address == null)
+            //{
+            //    return NotFound($"Can't find address with provided addressId: {property.AdressId}.");
+            //}
 
-            _propertyRepository.DeleteProperty(property, address, owner);
+            _propertyRepository.DeleteProperty(property);
             return new JsonResult(property.Id);
         }
         

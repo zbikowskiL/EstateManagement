@@ -18,12 +18,12 @@ export class HttpPropertiesBackendService extends PropertiesBackendService {
     constructor(private http: Http) {
         super();
         let headersJson: Headers = new Headers({
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         });
         this.jsonContentOptions = new RequestOptions({ headers: headersJson })
     }
 
-    addproperty(newProperty: Property): Observable<number> {
+    addProperty(newProperty: Property): Observable<number> {
         return this.http.post(this.addPropertyUrl, JSON.stringify(newProperty), this.jsonContentOptions)
             .map(response => response.json() as number);
     }

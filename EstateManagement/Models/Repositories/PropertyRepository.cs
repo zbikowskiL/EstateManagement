@@ -76,29 +76,31 @@ namespace EstateManagement.Models.Repositories
         }
 
         //DELETE
-        public void DeleteProperty(Property property, Adress adress, Owner owner)
+        //public void DeleteProperty(Property property, Adress adress, Owner owner)
+        public void DeleteProperty(Property property)
         {
             if (property == null)
             {
                 throw new Exception("Property object can't be null.");
             }
-            if (adress == null)
-            {
-                throw new Exception("Address object can't be null.");
-            }
-            if (owner == null)
-            {
-                throw new Exception("Owner object can't be null.");
-            }
+
+            //if (adress == null)
+            //{
+            //    throw new Exception("Address object can't be null.");
+            //}
+            //if (owner == null)
+            //{
+            //    throw new Exception("Owner object can't be null.");
+            //}
 
             _databaseContext.Properties.Remove(property);
             _databaseContext.SaveChanges();
 
-            _databaseContext.Adresses.Remove(adress);
-            _databaseContext.SaveChanges();
+            //_databaseContext.Adresses.Remove(adress);
+            //_databaseContext.SaveChanges();
 
-            _databaseContext.Owners.Remove(owner);
-            _databaseContext.SaveChanges();
+            //_databaseContext.Owners.Remove(owner);
+            //_databaseContext.SaveChanges();
             
         }
     }

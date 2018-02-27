@@ -11,7 +11,8 @@ namespace EstateManagement.Models.Interfaces
         Property GetProperty(int propertyId);
         int AddProperty(Property property, Adress adress, Owner owner);
         int UpdateProperty(Property property);
-        void DeleteProperty(Property property, Adress adress, Owner owner);
-        
+        //void DeleteProperty(Property property, Adress adress, Owner owner);
+        void DeleteProperty(Property property);
+
     }
 }

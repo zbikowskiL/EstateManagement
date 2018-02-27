@@ -32,6 +32,11 @@ namespace EstateManagement.Models.Repositories
 
         }
 
+        public List<Owner> GetAllOwners()
+        {
+            return _databaseContext.Owners.ToList();
+        }
+
         //GET
         public Owner GetOwner(int ownerId)
         {
@@ -41,6 +46,19 @@ namespace EstateManagement.Models.Repositories
             }
 
             return _databaseContext.Owners.FirstOrDefault(owner => owner.OwnerId == ownerId);
+        }
+
+        public int UpdateOwner(Owner owner)
+        {
+            if (owner == null)
+            {
+                throw new Exception("Object owner can't be null.");
+            }
+
+            _databaseContext.Owners.Update(owner);
+            _databaseContext.SaveChanges();
+
+            return owner.OwnerId;
         }
     }
 }

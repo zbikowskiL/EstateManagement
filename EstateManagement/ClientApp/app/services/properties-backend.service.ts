@@ -5,7 +5,7 @@ import { Property } from '../models/Property';
 @Injectable()
 
 export abstract class PropertiesBackendService {
-    abstract addproperty(newProperty: Property): Observable<number>;
+    abstract addProperty(newProperty: Property): Observable<number>;
 
     abstract getProperty(id: number): Observable<Property>;
 
@@ -13,7 +13,7 @@ export abstract class PropertiesBackendService {
 
     abstract updateProperty(updateProperty: Property): Observable<number>;
 
-    abstract deleteProperty(propertyId: number): Observable<number>;
+    abstract deleteProperty(id: number): Observable<number>;
 }
 
 

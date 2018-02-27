@@ -10,6 +10,7 @@ namespace EstateManagement.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AdressId { get; set; }
+
         public string Street { get; set; }
         public string City { get; set; }
 

@@ -8,25 +8,25 @@ import { PropertiesBackendService } from '../../../services/properties-backend.s
 @Injectable()
 
 export class PropertiesService {
-    constructor(private propertiesBackenService: PropertiesBackendService) { }
+    constructor(private propertiesBackendService: PropertiesBackendService) { }
 
     addProperty(newProperty: Property): Observable<number> {
-        return this.propertiesBackenService.addproperty(newProperty);
+        return this.propertiesBackendService.addProperty(newProperty);
     }
 
     getProperty(propertyId: number): Observable<Property> {
-        return this.propertiesBackenService.getProperty(propertyId);
+        return this.propertiesBackendService.getProperty(propertyId);
     }
 
     getAllProperties(): Observable<Property[]> {
-        return this.propertiesBackenService.getProperties();
+        return this.propertiesBackendService.getProperties();
     }
 
     updateProperty(updateProperty: Property): Observable<number> {
-        return this.propertiesBackenService.updateProperty(updateProperty);
+        return this.propertiesBackendService.updateProperty(updateProperty);
     }
 
     deleteProperty(propertyId: number): Observable<number> {
-        return this.propertiesBackenService.deleteProperty(propertyId);
+        return this.propertiesBackendService.deleteProperty(propertyId);
     }
 }
