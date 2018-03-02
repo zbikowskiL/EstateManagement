@@ -7,9 +7,12 @@ import { RouterModule } from '@angular/router';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+//**PrimeNG Modules**\\
 import { CalendarModule } from 'primeng/calendar';
 import { GrowlModule } from 'primeng/growl';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ConfirmDialogModule } from 'primeng/primeng';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -45,6 +48,7 @@ import { PropertyDetailsComponent } from './components/properties/components/pro
         ReactiveFormsModule,
         GrowlModule,
         ProgressSpinnerModule,
+        ConfirmDialogModule,
         
         
         RouterModule.forRoot([

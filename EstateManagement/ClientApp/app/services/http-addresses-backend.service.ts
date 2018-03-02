@@ -28,11 +28,11 @@ export class HttpAddressesBackendService extends AddressesBackendService {
     }
     getAddress(id: number): Observable<Address> {
         return this.http.get(this.getAddressUrl + id, this.jsonContentOptions)
-            .map(response => response.json());
+            .map(response => response.json() as Address);
     }
     getAddresses(): Observable<Address[]> {
         return this.http.get(this.getAllAddressesUrl, this.jsonContentOptions)
-            .map(response => response.json());
+            .map(response => response.json() as Array<Address>);
     }
     updateAddress(updateAddress: Address): Observable<number> {
         return this.http.put(this.updateAddressUrl, JSON.stringify(updateAddress), this.jsonContentOptions)

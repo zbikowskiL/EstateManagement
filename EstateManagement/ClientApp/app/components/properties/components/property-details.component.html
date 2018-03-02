@@ -1,14 +1,28 @@
 ﻿<div>
     <div style="margin-top: 20px">
         <a (click)="goBack()" class="btn btn-warning">Back</a> <h3>{{pageTitle}}</h3>
+        <a (click)="activateNewAddressMode()" class="btn btn-warning">Back</a><h3>{{addressBtnTitle}}</h3>
+        <a (click)="activateNewOwnerMode()" class="btn btn-warning">Back</a><h3>{{ownerBtnTitle}}</h3>
     </div>
-    <p-growl [(value)]="msgs"></p-growl>
-    <p-calendar></p-calendar>
+
+    <dvi *ngIf="isNewOwnerActivated">
+        <new-owner [receivedId]="property.ownerId" (ownerAddedEvent)="ownerAddedEvent($event)"></new-owner>
+    </dvi>
+    <div *ngIf="isNewAddressActivated">
+        <new-address [receivedId]="property.addressId" (addressAddedEvent)="addressAddedEvent($event)"></new-address>
+    </div>
+
+    <div>
+        <h3>{{pageTitle}}</h3>
+    </div>
+
+    <p-growl [sticky]="false" [life]="5000" [(value)]="messages"></p-growl>
+    
     <div style="margin-top: 25px; margin-bottom: 50px">
         <form [formGroup]="propertyForm" (ngSubmit)="onSubmit(property)">
             <div class="form-group">
                 <label for="type">Select type:</label>
-                <select formControlName="Type" [disabled]="!isInEditionMode" required [(ngModel)]="property.type" class="form-control" id="type" name="type" >
+                <select formControlName="Type" [disabled]="!isInEditionMode" required [(ngModel)]="property.type" class="form-control" id="type" name="type">
                     <option></option>
                     <option value="1">House</option>
                     <option value="0">Flat</option>
@@ -22,12 +36,12 @@
             </div>
             <div class="form-group">
                 <label for="area">Area:</label>
-                <input formControlName="Area" [disabled]="!isInEditionMode" [(ngModel)]="property.area" id="area" type="number"  class="form-control" name="area" placeholder="Property areas..." />
+                <input formControlName="Area" [disabled]="!isInEditionMode" [(ngModel)]="property.area" id="area" type="number" class="form-control" name="area" placeholder="Property areas..." />
                 <p *ngIf="!propertyForm.get('Area').valid && propertyForm.get('Area').dirty" class="error">This filed is required</p>
             </div>
             <div class="form-group">
                 <label for="washer">Washer:</label>
-                <select formControlName="Washer" [disabled]="!isInEditionMode" [(ngModel)]="property.washer" class="form-control" id="washer" name="washer" >
+                <select formControlName="Washer" [disabled]="!isInEditionMode" [(ngModel)]="property.washer" class="form-control" id="washer" name="washer">
                     <option></option>
                     <option value="true">Yes</option>
                     <option value="false">No</option>
@@ -36,7 +50,7 @@
             </div>
             <div class="form-group">
                 <label for="refrigerator">Refrigerator:</label>
-                <select formControlName="Refrigerator" [disabled]="!isInEditionMode" [(ngModel)]="property.refrigerator" class="form-control" id="refrigerator" name="refrigerator" >
+                <select formControlName="Refrigerator" [disabled]="!isInEditionMode" [(ngModel)]="property.refrigerator" class="form-control" id="refrigerator" name="refrigerator">
                     <option></option>
                     <option value="true">Yes</option>
                     <option value="false">No</option>
@@ -58,16 +72,16 @@
                 <p *ngIf="!propertyForm.get('Description').valid && propertyForm.get('Description').dirty" class="error">This filed is required</p>
             </div>
             <div *ngIf="isInEditionMode">
-                <button type="submit" [disabled]="propertyForm.invalid" pButton  label="Save" class=" btn btn-form-control ui-button-success"></button>
+                <button type="submit" [disabled]="propertyForm.invalid" pButton label="Save" class=" btn btn-form-control ui-button-success"></button>
             </div>
-           
+
         </form>
     </div>
-        <pre> Stan walidacji Type: {{ propertyForm.value | json }} </pre>
-        <pre> Stan walidacji Rooms: {{ propertyForm.get('Rooms').valid| json }} </pre>
-        <pre> Stan walidacji Area: {{ propertyForm.get('Area').valid| json }} </pre>
-        <pre> Stan walidacji Washer: {{ propertyForm.get('Washer').valid| json }} </pre>
-        <pre> Stan walidacji Iron: {{ propertyForm.get('Iron').valid| json }} </pre>
-        <pre> Stan walidacji Refrigerator: {{ propertyForm.get('Refrigerator').valid| json }} </pre>
-        <pre> Stan walidacji Description: {{ propertyForm.get('Description').valid| json }} </pre>
-    </div>
+    <pre> Stan walidacji Type: {{ propertyForm.value | json }} </pre>
+    <pre> Stan walidacji Rooms: {{ propertyForm.get('Rooms').valid| json }} </pre>
+    <pre> Stan walidacji Area: {{ propertyForm.get('Area').valid| json }} </pre>
+    <pre> Stan walidacji Washer: {{ propertyForm.get('Washer').valid| json }} </pre>
+    <pre> Stan walidacji Iron: {{ propertyForm.get('Iron').valid| json }} </pre>
+    <pre> Stan walidacji Refrigerator: {{ propertyForm.get('Refrigerator').valid| json }} </pre>
+    <pre> Stan walidacji Description: {{ propertyForm.get('Description').valid| json }} </pre>
+</div>

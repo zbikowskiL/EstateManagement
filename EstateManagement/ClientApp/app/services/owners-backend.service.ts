@@ -7,7 +7,7 @@ import { Owner } from '../models/owner';
 export abstract class OwnersBackendService {
     abstract addOwner(newOwner: Owner): Observable<number>;
 
-    abstract getOwner(id: number): Observable<number>;
+    abstract getOwner(id: number): Observable<Owner>;
 
     abstract getOwners(): Observable<Owner[]>;
 

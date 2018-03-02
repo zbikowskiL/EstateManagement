@@ -1,13 +1,15 @@
-﻿import { Component, OnInit, Input } from '@angular/core';
+﻿import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Property } from '../../../models/Property';
 import { PropertiesService } from '../../properties/services/PropertiesService';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {SelectItem} from 'primeng/components/common/api';
-import {Message} from 'primeng/components/common/api';
-import {MessageService} from 'primeng/components/common/messageservice';
+import { SelectItem } from 'primeng/components/common/api';
+import { Message } from 'primeng/components/common/api';
+import { MessageService } from 'primeng/components/common/messageservice';
+import { Owner } from '../../../models/owner';
+import { BaseComponent } from '../../../common/base.component';
 
 
 @Component ({
@@ -16,34 +18,55 @@ import {MessageService} from 'primeng/components/common/messageservice';
     providers: [MessageService]
 })
 
-export class PropertyDetailsComponent implements OnInit {
-    
-    msgs: Message[] = [];
-    pageTitle: string;
-    propertyForm: FormGroup;
-    urlParam: number;
-    isInEditionMode: boolean = true;
-    property: Property = new Property();
-    area : number;
+export class PropertyDetailsComponent extends BaseComponent implements OnInit {
     constructor(
         private propertiesService: PropertiesService,
-        private activeRoute: ActivatedRoute,
+        private activatedRoute: ActivatedRoute,
         private location: Location,
         private formBuilder: FormBuilder,
         private messageService: MessageService
-        
-    ) { };
+
+    ) { super(activatedRoute, location) };
 
     ngOnInit(): void {
         this.detectedUrlParam();
         this.wathPathUrl();   
-        this.propertyForm = this.buildPropertyForm();  
-        
+        this.propertyForm = this.buildPropertyForm();
+        this.messages = Array<Message>();
+    }
+
+    pageTitle: string;
+    propertyForm: FormGroup;
+    urlParam: number;
+    ownerBtnTitle = 'Owner data';
+    addressBtnTitle = 'Address';
+    isInEditionMode: boolean = true;
+
+    owner: Owner = new Owner();
+    property: Property = new Property();
+
+    isUpdatePage: boolean = false;
+    isNewOwnerModeActivated: boolean = false;
+    isNewAddressModeActivated: boolean = false;
+
+    ownerAddedEvent(id: number): void {
+        this.property.ownerId = id;
+    }
+    addressAddedEvent(id: number): void {
+        this.property.adressId = id;
+    }
+
+    activateNewAddressMode(): void {
+        this.isNewAddressModeActivated == true ? this.isNewAddressModeActivated = false : this.isNewAddressModeActivated = true;
+    }
+
+    activateNewOwnerMode(): void {
+        this.isNewOwnerModeActivated == true ? this.isNewOwnerModeActivated = false : this.isNewOwnerModeActivated = true;
     }
 
     //przechwytuje parametr id z Url.
     detectedUrlParam(): void {
-        this.activeRoute.params.subscribe((params: Params) => {
+        this.activatedRoute.params.subscribe((params: Params) => {
             this.urlParam = params['id'];
         });
     };
@@ -52,9 +75,13 @@ export class PropertyDetailsComponent implements OnInit {
     wathPathUrl(): void {
         if (this.location.isCurrentPathEqualTo("/properties/new-property")) {
             this.pageTitle = "New property";
+            this.ownerBtnTitle = "Add the owner";
+            this.addressBtnTitle = "Add the address";
         }
         else if (this.location.isCurrentPathEqualTo("/properties/property-update/" + this.urlParam)) {
             this.pageTitle = "Update property";
+            this.ownerBtnTitle = "Update the owner";
+            this.addressBtnTitle = "Update the address";
             this.downloadProperty();
         }
         else {
@@ -67,36 +94,30 @@ export class PropertyDetailsComponent implements OnInit {
     downloadProperty(): void {
         this.propertiesService.getProperty(this.urlParam).subscribe(
             propertyFromDb => this.property = propertyFromDb,
-            errorObj => console.log(errorObj)
+            errorMessage => this.showMassage(true, 'warn', 'Information', false, errorMessage)
         );
     }
 
-    cenaMieszkania(id: number): void{
-         this.propertiesService.getProperty(id).map((prop) => prop.Area == this.area);
-            console.log(this.area);
-    }
-
     onSubmit(propObj: Property): void {
+        if ((propObj.adressId == undefined || propObj.adressId < 0) || (propObj.ownerId == undefined || propObj.ownerId < 0)) {
+            return this.showMassage(true, 'warn', 'Warning', false, 'Before submiting property you need to creat owner and address first!')
+        }
             if (this.location.isCurrentPathEqualTo("/properties/new-property")) {
-            propObj.adressId = 4;
-            propObj.ownerId = 4;
+            //propObj.adressId = 4; do usunięcia po testach
+            //propObj.ownerId = 4; do usunięcia po testach
             
             this.propertiesService.addProperty(propObj).subscribe(
-                onSuccess => this.showSuccess(),
-                onError => console.log(onError)
+                onSuccess => this.showMassage(true, 'success', 'Confirmation', false, 'Property has been created successfully!'),
+                errorMessage => this.showMassage(true, 'warn', 'Information', false, errorMessage)
             );
         }
         else {
             this.propertiesService.updateProperty(propObj).subscribe(
-                onSuccess => console.log(onSuccess),
-                onError => console.log(onError)
+                onSuccess => this.showMassage(true, 'success', 'Confirmation', false, 'Property has been update successfully!'),
+                errorMessage => this.showMassage(true, 'warn', 'Information', false, errorMessage)
             );
         }
     };
-
-    goBack(): void {
-        this.location.back();
-    }
 
     buildPropertyForm(){
         return this.formBuilder.group({
@@ -113,8 +134,5 @@ export class PropertyDetailsComponent implements OnInit {
              ownerId: ''
         });
     }
-    showSuccess() {
-        this.msgs = [];
-        this.msgs.push({severity:'success', summary:'Success Message', detail:'Order submitted'});
-    }
+   
 }

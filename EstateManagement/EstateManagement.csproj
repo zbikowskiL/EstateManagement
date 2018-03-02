@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\common\base.component.ts" />
     <None Remove="ClientApp\app\components\properties\components\property-details.component.ts" />
     <None Remove="ClientApp\app\components\properties\properties.component.ts" />
     <None Remove="ClientApp\app\components\properties\services\PropertiesService.ts" />
@@ -36,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\common\base.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\properties\components\properties.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\properties\components\property-details.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\properties\services\PropertiesService.ts" />
