@@ -59,7 +59,7 @@ namespace EstateManagement.Controllers
                 return NotFound("Can't find owner with provided ownerId.");
             }
 
-            var address = _addressRepository.GetAddress(property.AdressId);
+            var address = _addressRepository.GetAddress(property.AddressId);
             if (address == null)
             {
                 return NotFound("Can't find owner with provided addressId.");
@@ -95,19 +95,20 @@ namespace EstateManagement.Controllers
                 return NotFound($"Can't find property with provided propertyId: {propertyId}.");
             }
 
-            //var owner = _ownerRepository.GetOwner(property.OwnerId);
-            //if (owner == null)
-            //{
-            //    return NotFound($"Can't find owner with provided ownerId: {property.OwnerId}.");
-            //}
+            var owner = _ownerRepository.GetOwner(property.OwnerId);
+            if (owner == null)
+            {
+                return NotFound($"Can't find owner with provided ownerId: {property.OwnerId}.");
+            }
 
-            //var address = _addressRepository.GetAddress(property.AdressId);
-            //if (address == null)
-            //{
-            //    return NotFound($"Can't find address with provided addressId: {property.AdressId}.");
-            //}
+            var address = _addressRepository.GetAddress(property.AddressId);
+            if (address == null)
+            {
+                return NotFound($"Can't find address with provided addressId: {property.AddressId}.");
+            }
 
-            _propertyRepository.DeleteProperty(property);
+            
+            _propertyRepository.DeleteProperty(property, address, owner);
             return new JsonResult(property.Id);
         }
         

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace EstateManagement.Models
 {
-    public class Adress
+    public class Address
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int AdressId { get; set; }
+        public int AddressId { get; set; }
 
         public string Street { get; set; }
         public string City { get; set; }

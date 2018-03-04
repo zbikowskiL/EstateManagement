@@ -30,11 +30,11 @@ export class HttpOwnersBackendService extends OwnersBackendService {
     }
     getOwner(id: number): Observable<Owner> {
         return this.http.get(this.getOwnerUrl + id, this.jsonContentOptions)
-            .map(response => response.json() as Owner);
+            .map(response => response.json());
     }
     getOwners(): Observable<Owner[]> {
         return this.http.get(this.getAllOwnersUrl, this.jsonContentOptions)
-            .map(response => response.json() as Array<Owner>);
+            .map(response => response.json());
     }
 
     updateOwner(updateOwner: Owner): Observable<number> {

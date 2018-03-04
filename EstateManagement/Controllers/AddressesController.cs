@@ -43,7 +43,7 @@ namespace EstateManagement.Controllers
 
         //POST api/addresses/addaddress
         [HttpPost("[action]")]
-        public IActionResult AddAddress([FromBody]Adress address)
+        public IActionResult AddAddress([FromBody]Address address)
         {
             if (!ModelState.IsValid)
             {
@@ -51,19 +51,19 @@ namespace EstateManagement.Controllers
             }
 
             _addressRepository.AddAddress(address);
-            return new JsonResult(address.AdressId);
+            return new JsonResult(address.AddressId);
         }
 
         [HttpPut("[action]")]
-        public IActionResult UpdateAddress([FromBody]Adress adress)
+        public IActionResult UpdateAddress([FromBody]Address address)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _addressRepository.UpdateAddress(adress);
-            return new JsonResult(adress.AdressId);
+            _addressRepository.UpdateAddress(address);
+            return new JsonResult(address.AddressId);
         }
 
         

@@ -9,10 +9,10 @@ namespace EstateManagement.Models.Interfaces
     {
         List<Property> GetAllProperties();
         Property GetProperty(int propertyId);
-        int AddProperty(Property property, Adress adress, Owner owner);
+        int AddProperty(Property property, Address address, Owner owner);
         int UpdateProperty(Property property);
-        //void DeleteProperty(Property property, Adress adress, Owner owner);
-        void DeleteProperty(Property property);
+        void DeleteProperty(Property property, Address address, Owner owner);
+        //void DeleteProperty(Property property);
 
     }
 }

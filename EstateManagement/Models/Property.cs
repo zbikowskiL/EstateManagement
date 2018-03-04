@@ -21,8 +21,8 @@ namespace EstateManagement.Models
         public bool Iron { get; set; }
 
        
-        public virtual int AdressId { get; set; }
-        public virtual Adress Adress { get; set; }
+        public virtual int AddressId { get; set; }
+        public virtual Address Address { get; set; }
 
       
         public virtual int OwnerId { get; set; }

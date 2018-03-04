@@ -13,6 +13,6 @@ namespace EstateManagement.Models.DataBase
         
         public DbSet<Property> Properties { get; set; }
         public DbSet<Owner> Owners { get; set; }
-        public DbSet<Adress> Adresses  { get; set; }
+        public DbSet<Address> Addresses  { get; set; }
     }
 }

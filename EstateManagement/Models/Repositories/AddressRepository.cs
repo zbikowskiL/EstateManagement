@@ -17,50 +17,50 @@ namespace EstateManagement.Models.Repositories
         }
 
         //CREATE
-        public int AddAddress(Adress address)
+        public int AddAddress(Address address)
         {
             if (address == null)
             {
                 throw new Exception("Address object can't be null.");
             }
 
-            _databaseContext.Adresses.Add(address);
+            _databaseContext.Addresses.Add(address);
             _databaseContext.SaveChanges();
 
-            return address.AdressId;
+            return address.AddressId;
             
         }
 
         //GET
-        public Adress GetAddress(int addressId)
+        public Address GetAddress(int addressId)
         {
             if (addressId <= 0)
             {
                 throw new Exception("AddressId can't be less than 0.");
             }
 
-            return _databaseContext.Adresses.FirstOrDefault(address => address.AdressId == addressId);
+            return _databaseContext.Addresses.FirstOrDefault(address => address.AddressId == addressId);
             
         }
 
 
-        public int UpdateAddress(Adress address)
+        public int UpdateAddress(Address address)
         {
             if (address == null)
             {
                 throw new Exception("Object Address can't be null.");
             }
 
-            _databaseContext.Adresses.Update(address);
+            _databaseContext.Addresses.Update(address);
             _databaseContext.SaveChanges();
 
-            return address.AdressId;
+            return address.AddressId;
 
         }
 
-        List<Adress> IAddressRepository.GetAllAddresses()
+        List<Address> IAddressRepository.GetAllAddresses()
         {
-            return _databaseContext.Adresses.ToList();
+            return _databaseContext.Addresses.ToList();
         }
     }
 }

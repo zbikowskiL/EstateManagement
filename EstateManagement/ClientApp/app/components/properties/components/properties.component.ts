@@ -23,9 +23,9 @@ export class PropertiesComponent extends BaseComponent implements OnInit {
     constructor(
         private confirmationService: ConfirmationService,
         private propertiesService: PropertiesService,
-        private router: Router,
-        private location: Location,
         private activatedRoute: ActivatedRoute,
+        private location: Location,
+        private router: Router,
     ) { super(activatedRoute, location) };
 
     
@@ -63,10 +63,10 @@ export class PropertiesComponent extends BaseComponent implements OnInit {
             accept: () => {
                 this.propertiesService.deleteProperty(id).subscribe(
                     onSuccess => {
-                        this.showMassage(false, 'success', 'Confirmation', true, 'Property has been deleted successfully!')
-                        this.properties.splice(this.properties.findIndex(prop => prop.Id == id), 1);
+                        this.showMassage(false, 'success', 'Confirmation', false, 'Property has been deleted successfully!')
+                        this.properties.splice(this.properties.findIndex(prop => prop.id === id), 1);
                     },
-                    errorMessage => this.showMassage(true, 'warn', 'Information', false, errorMessage)
+                    errorMessage => this.showMassage(false, 'warn', 'Information', false, errorMessage)
                 );
             },
             reject: () => {

@@ -40,7 +40,7 @@ export class PropertyDetailsComponent extends BaseComponent implements OnInit {
     urlParam: number;
     ownerBtnTitle = 'Owner data';
     addressBtnTitle = 'Address';
-    isInEditionMode: boolean = true;
+    isInEditMode: boolean = true;
 
     owner: Owner = new Owner();
     property: Property = new Property();
@@ -53,7 +53,7 @@ export class PropertyDetailsComponent extends BaseComponent implements OnInit {
         this.property.ownerId = id;
     }
     addressAddedEvent(id: number): void {
-        this.property.adressId = id;
+        this.property.addressId = id;
     }
 
     activateNewAddressMode(): void {
@@ -73,20 +73,22 @@ export class PropertyDetailsComponent extends BaseComponent implements OnInit {
 
 
     wathPathUrl(): void {
-        if (this.location.isCurrentPathEqualTo("/properties/new-property")) {
+        if (this.location.isCurrentPathEqualTo("/properties/new-property/")) {
             this.pageTitle = "New property";
             this.ownerBtnTitle = "Add the owner";
             this.addressBtnTitle = "Add the address";
+            this.isInEditMode = true;
         }
         else if (this.location.isCurrentPathEqualTo("/properties/property-update/" + this.urlParam)) {
             this.pageTitle = "Update property";
             this.ownerBtnTitle = "Update the owner";
             this.addressBtnTitle = "Update the address";
             this.downloadProperty();
+            this.isInEditMode = true;
         }
         else {
             this.pageTitle = "Details property";
-            this.isInEditionMode = false;
+            this.isInEditMode = false;
             this.downloadProperty();
         }
     };
@@ -99,21 +101,21 @@ export class PropertyDetailsComponent extends BaseComponent implements OnInit {
     }
 
     onSubmit(propObj: Property): void {
-        if ((propObj.adressId == undefined || propObj.adressId < 0) || (propObj.ownerId == undefined || propObj.ownerId < 0)) {
+        if ((propObj.addressId == undefined || propObj.addressId < 0) || (propObj.ownerId == undefined || propObj.ownerId < 0)) {
             return this.showMassage(true, 'warn', 'Warning', false, 'Before submiting property you need to creat owner and address first!')
         }
             if (this.location.isCurrentPathEqualTo("/properties/new-property")) {
-            //propObj.adressId = 4; do usunięcia po testach
+            //propObj.addressId = 4; do usunięcia po testach
             //propObj.ownerId = 4; do usunięcia po testach
             
             this.propertiesService.addProperty(propObj).subscribe(
-                onSuccess => this.showMassage(true, 'success', 'Confirmation', false, 'Property has been created successfully!'),
-                errorMessage => this.showMassage(true, 'warn', 'Information', false, errorMessage)
+                onSuccess => this.showMassage(false, 'success', 'Confirmation', false, 'Property has been created successfully!'),
+                errorMessage => this.showMassage(false, 'warn', 'Information', false, errorMessage)
             );
         }
         else {
             this.propertiesService.updateProperty(propObj).subscribe(
-                onSuccess => this.showMassage(true, 'success', 'Confirmation', false, 'Property has been update successfully!'),
+                onSuccess => this.showMassage(false, 'success', 'Confirmation', false, 'Property has been update successfully!'),
                 errorMessage => this.showMassage(true, 'warn', 'Information', false, errorMessage)
             );
         }
@@ -130,7 +132,7 @@ export class PropertyDetailsComponent extends BaseComponent implements OnInit {
              Refrigerator: ['', Validators.required],
              Iron: ['', Validators.required],
             //s
-             adressId: '',
+             addressId: '',
              ownerId: ''
         });
     }

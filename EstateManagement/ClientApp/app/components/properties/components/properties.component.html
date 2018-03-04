@@ -22,9 +22,9 @@
             <tbody>
                 <tr *ngFor="let property of properties let i = index" [attr.data.-index]="1">
                     <td class="col-md-1 col-sm-1 col-xs-1">{{i + 1}}</td>
-                    <td class="col-md-1 col-sm-1 col-xs-1">{{property.type === 0 ? "Flat" : "House"}}</td>
-                    <td class="col-md-1 col-sm-1 col-xs-1">{{property.rooms}}</td>
-                    <td class="col-md-1 col-sm-1 col-xs-1">{{property.area}} m<sup>2</sup></td>
+                    <td class="col-md-3 col-sm-3 col-xs-3">{{property.type === 0 ? "Flat" : "House"}}</td>
+                    <td class="col-md-2 col-sm-2 col-xs-2">{{property.rooms}}</td>
+                    <td class="col-md-3 col-sm-3 col-xs-3">{{property.area}} m<sup>2</sup></td>
                     <td class="col-md-1 col-sm-1 col-xs-1">
                         <button class="btn btn-primary" (click)="getProperty(property.id)">Details</button>
                     </td>

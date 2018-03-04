@@ -7,9 +7,9 @@ namespace EstateManagement.Models.Interfaces
 {
     public interface IAddressRepository
     {
-        int AddAddress(Adress address);
-        Adress GetAddress(int addressId);
-        int UpdateAddress(Adress address);
-        List<Adress> GetAllAddresses();
+        int AddAddress(Address address);
+        Address GetAddress(int addressId);
+        int UpdateAddress(Address address);
+        List<Address> GetAllAddresses();
     }
 }

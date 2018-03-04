@@ -1,0 +1,29 @@
+﻿<div>
+    <div style="margin-top: 25px">
+        <div *ngIf="isInOwnerDetailsMode">
+            <a (click)="goBack()" class="btn btn-warning">Back</a>
+        </div>
+
+        <p-growl [sticky]="false" [life]="5000" [(value)]="messages"></p-growl>
+        
+        <div style="margin-top: 25px; margin-bottom: 50px">
+            <form #ownerForm="ngForm" (ngSubmit)="onSubmit(owner)">
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input [disabled]="!isInEditMode" required id="ownerName" name="ownerName" type="text" [(ngModel)]="owner.name" class="form-control" placeholder="Owners name..." />
+                </div>
+                <div class="form-group">
+                    <label>Surname:</label>
+                    <input [disabled]="!isInEditMode" required id="ownerSurname" name="ownerSurname" type="text" [(ngModel)]="owner.surname" class="form-control" placeholder="Owners surname..."/>
+                </div>
+                <div class="form-group">
+                    <label>Phone:</label>
+                    <input [disabled]="!isInEditMode" required id="ownerPhone" name="ownerPhone" type="text" [(ngModel)]="owner.phone" class="form-control" placeholder="Owner phone..."/>
+                </div>
+                <div *ngIf="isInEditMode">
+                    <button type="submit" [disabled]="!ownerForm.form.valid" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

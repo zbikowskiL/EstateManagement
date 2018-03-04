@@ -18,13 +18,13 @@ namespace EstateManagement.Models.Repositories
         }
 
         //CREATE
-        public int AddProperty(Property property, Adress adress, Owner owner)
+        public int AddProperty(Property property, Address address, Owner owner)
         {
             if (property == null)
             {
                 throw new Exception("Property object can't be null.");
             }
-            if (adress == null)
+            if (address == null)
             {
                 throw new Exception("Address object can't be null.");
             }
@@ -37,8 +37,8 @@ namespace EstateManagement.Models.Repositories
             property.Owner = owner;
             property.OwnerId = owner.OwnerId;
 
-            property.Adress = adress;
-            property.AdressId = adress.AdressId;
+            property.Address = address;
+            property.AddressId = address.AddressId;
             _databaseContext.Properties.Add(property);
             _databaseContext.SaveChanges();
 
@@ -76,32 +76,32 @@ namespace EstateManagement.Models.Repositories
         }
 
         //DELETE
-        //public void DeleteProperty(Property property, Adress adress, Owner owner)
-        public void DeleteProperty(Property property)
+        public void DeleteProperty(Property property, Address address, Owner owner)
+        //public void DeleteProperty(Property property)
         {
             if (property == null)
             {
                 throw new Exception("Property object can't be null.");
             }
 
-            //if (adress == null)
-            //{
-            //    throw new Exception("Address object can't be null.");
-            //}
-            //if (owner == null)
-            //{
-            //    throw new Exception("Owner object can't be null.");
-            //}
+            if (address == null)
+            {
+                throw new Exception("Address object can't be null.");
+            }
+            if (owner == null)
+            {
+                throw new Exception("Owner object can't be null.");
+            }
 
             _databaseContext.Properties.Remove(property);
             _databaseContext.SaveChanges();
 
-            //_databaseContext.Adresses.Remove(adress);
-            //_databaseContext.SaveChanges();
+            _databaseContext.Addresses.Remove(address);
+            _databaseContext.SaveChanges();
 
-            //_databaseContext.Owners.Remove(owner);
-            //_databaseContext.SaveChanges();
-            
+            _databaseContext.Owners.Remove(owner);
+            _databaseContext.SaveChanges();
+
         }
     }
 }

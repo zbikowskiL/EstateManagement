@@ -27,6 +27,21 @@ import { PropertiesBackendService } from './services/properties-backend.service'
 import { HttpPropertiesBackendService } from './services/http-properties-backend.service';
 import { PropertyDetailsComponent } from './components/properties/components/property-details.component';
 
+//**Address Section**\\
+import { AddressesComponent } from './components/addresses/components/addresses.component';
+import { AddressesService } from './components/addresses/services/addresses.service';
+import { AddressesBackendService } from './services/addresses-backend.service';
+import { HttpAddressesBackendService } from './services/http-addresses-backend.service';
+import { NewAddressComponent } from './components/addresses/components/new-address.component';
+
+//**Owner Section**\\
+import { OwnersComponent } from './components/owners/components/owners.component';
+import { OwnersService } from './components/owners/services/owners.service';
+import { OwnersBackendService } from './services/owners-backend.service';
+import { HttpOwnersBackendService } from './services/http-owners-backend.service';
+import { NewOwnerComponent } from './components/owners/components/new-owner.component';
+
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -36,6 +51,10 @@ import { PropertyDetailsComponent } from './components/properties/components/pro
         HomeComponent,
         PropertiesComponent,
         PropertyDetailsComponent,
+        AddressesComponent,
+        NewAddressComponent,
+        OwnersComponent,
+        NewOwnerComponent,
         
     ],
     imports: [
@@ -60,12 +79,26 @@ import { PropertyDetailsComponent } from './components/properties/components/pro
             { path: 'properties/new-property', component: PropertyDetailsComponent },
             { path: 'properties/property-details/:id', component: PropertyDetailsComponent },
             { path: 'properties/property-update/:id', component: PropertyDetailsComponent },
+
+            { path: 'addresses', component: AddressesComponent },
+            { path: 'addresses/new-address', component: NewAddressComponent },
+            { path: 'addresses/address-details/:id', component: NewAddressComponent },
+            { path: 'addresses/address-update/:id', component: NewAddressComponent },
+
+            { path: 'owners', component: OwnersComponent },
+            { path: 'owners/owner-update/:id', component: NewOwnerComponent },
+            { path: 'owners/owner-details/:id', component: NewOwnerComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ],
     providers: [
+        AddressesService,
+        { provide: AddressesBackendService, useClass: HttpAddressesBackendService },
         PropertiesService,
-        { provide: PropertiesBackendService, useClass: HttpPropertiesBackendService }
+        { provide: PropertiesBackendService, useClass: HttpPropertiesBackendService },
+       
+        OwnersService,
+        { provide: OwnersBackendService, useClass: HttpOwnersBackendService },
     ]
 
 })

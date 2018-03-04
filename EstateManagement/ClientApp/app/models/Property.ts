@@ -2,16 +2,16 @@
     constructor();
 
     constructor(
-        public Id?: number,
-        public Type?: number,
-        public Description?: string,
-        public Rooms?: number,
-        public Area?: number,
-        public Washer?: boolean,
-        public Refrigerator?: boolean,
-        public Iron?: boolean,
+        public id?: number,
+        public type?: number,
+        public description?: string,
+        public rooms?: number,
+        public area?: number,
+        public washer?: boolean,
+        public refrigerator?: boolean,
+        public iron?: boolean,
         //s
-        public adressId?: number,
+        public addressId?: number,
         public ownerId?: number
     ) { };
 }
