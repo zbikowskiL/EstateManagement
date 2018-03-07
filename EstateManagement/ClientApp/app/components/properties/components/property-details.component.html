@@ -72,5 +72,11 @@
             </div>
 
         </form>
+
+        <input type="text" name="pr" id="pr" [(ngModel)]="pro" />
+        <button type="submit" (click)="countArea(property.area)">Policz cenę mieszkania</button>
+        <div>
+            <h2>{{area}}</h2>
+        </div>
     </div>
 </div>

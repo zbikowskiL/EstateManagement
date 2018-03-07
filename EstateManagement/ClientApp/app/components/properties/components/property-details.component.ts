@@ -28,11 +28,14 @@ export class PropertyDetailsComponent extends BaseComponent implements OnInit {
 
     ) { super(activatedRoute, location) };
 
+    
+
     ngOnInit(): void {
         this.detectedUrlParam();
         this.wathPathUrl();   
         this.propertyForm = this.buildPropertyForm();
         this.messages = Array<Message>();
+        
     }
 
     pageTitle: string;
@@ -41,9 +44,16 @@ export class PropertyDetailsComponent extends BaseComponent implements OnInit {
     ownerBtnTitle = 'Owner data';
     addressBtnTitle = 'Address';
     isInEditMode: boolean = true;
-
+    pro: number;
     owner: Owner = new Owner();
     property: Property = new Property();
+    properties: Array<Property>;
+
+    area: any;
+
+
+   
+
 
     isUpdatePage: boolean = false;
     isNewOwnerModeActivated: boolean = false;
@@ -99,6 +109,13 @@ export class PropertyDetailsComponent extends BaseComponent implements OnInit {
             errorMessage => this.showMassage(true, 'warn', 'Information', false, errorMessage)
         );
     }
+
+    
+    countArea(areaFromView: number): void {
+        this.area = areaFromView * this.pro;
+
+    }
+
 
     onSubmit(propObj: Property): void {
         if ((propObj.addressId == undefined || propObj.addressId < 0) || (propObj.ownerId == undefined || propObj.ownerId < 0)) {
