@@ -6,8 +6,9 @@
     "test": "karma start ClientApp/test/karma.conf.js"
   },
   "dependencies": {
-    "primeng": "^5.2.0",
-    "font-awesome": "^4.7.0"
+    "chart.js": "^2.7.2",
+    "font-awesome": "^4.7.0",
+    "primeng": "^5.2.0"
   },
   "devDependencies": {
     "@angular/animations": "4.2.5",

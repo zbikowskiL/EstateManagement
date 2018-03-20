@@ -32,6 +32,16 @@
                         <span class='glyphicon glyphicon-th-list'></span> Addresses list
                     </a>
                 </li>
+                <li [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact: true}">
+                    <a [routerLink]="['/reports/type-report']">
+                        <span class='glyphicon glyphicon-th-list'></span> Type report
+                    </a>
+                </li>
+                <li [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact: true}">
+                    <a [routerLink]="['/reports/properties-report']">
+                        <span class='glyphicon glyphicon-th-list'></span> Properties report
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

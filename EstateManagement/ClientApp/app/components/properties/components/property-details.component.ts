@@ -44,16 +44,10 @@ export class PropertyDetailsComponent extends BaseComponent implements OnInit {
     ownerBtnTitle = 'Owner data';
     addressBtnTitle = 'Address';
     isInEditMode: boolean = true;
-    pro: number;
+    //pro: number;
     owner: Owner = new Owner();
     property: Property = new Property();
     properties: Array<Property>;
-
-    area: any;
-
-
-   
-
 
     isUpdatePage: boolean = false;
     isNewOwnerModeActivated: boolean = false;
@@ -111,10 +105,10 @@ export class PropertyDetailsComponent extends BaseComponent implements OnInit {
     }
 
     
-    countArea(areaFromView: number): void {
-        this.area = areaFromView * this.pro;
+    //countArea(areaFromView: number): void {
+    //    this.area = areaFromView * this.pro;
 
-    }
+    //}
 
 
     onSubmit(propObj: Property): void {

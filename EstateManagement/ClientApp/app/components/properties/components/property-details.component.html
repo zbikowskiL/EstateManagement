@@ -20,8 +20,8 @@
                 <label for="type">Select type:</label>
                 <select [disabled]="!isInEditMode" required [(ngModel)]="property.type" class="form-control" id="type" name="type">
                     <option></option>
-                    <option value="1">House</option>
-                    <option value="0">Flat</option>
+                    <option value="0">House</option>
+                    <option value="1">Flat</option>
                 </select>
                 
             </div>
@@ -72,11 +72,5 @@
             </div>
 
         </form>
-
-        <input type="text" name="pr" id="pr" [(ngModel)]="pro" />
-        <button type="submit" (click)="countArea(property.area)">Policz cenę mieszkania</button>
-        <div>
-            <h2>{{area}}</h2>
-        </div>
     </div>
 </div>

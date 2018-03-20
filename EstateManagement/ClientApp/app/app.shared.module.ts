@@ -12,7 +12,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'primeng/calendar';
 import { GrowlModule } from 'primeng/growl';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { ConfirmDialogModule } from 'primeng/primeng';
+import { ConfirmDialogModule, ChartModule } from 'primeng/primeng';
+
+
+import '../../node_modules/chart.js/dist/Chart.js'
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -41,6 +44,11 @@ import { OwnersBackendService } from './services/owners-backend.service';
 import { HttpOwnersBackendService } from './services/http-owners-backend.service';
 import { NewOwnerComponent } from './components/owners/components/new-owner.component';
 
+//**Reports Section**\\
+import { ReportsComponent } from './components/reports/components/reports.component';
+import { ReportsService } from './components/reports/services/reports.service';
+import { ReportsBackendService } from './services/reports-backend.service';
+import { HttpReportsBackendService } from './services/http-reports-backend.service';
 
 @NgModule({
     declarations: [
@@ -55,6 +63,7 @@ import { NewOwnerComponent } from './components/owners/components/new-owner.comp
         NewAddressComponent,
         OwnersComponent,
         NewOwnerComponent,
+        ReportsComponent
         
     ],
     imports: [
@@ -68,6 +77,7 @@ import { NewOwnerComponent } from './components/owners/components/new-owner.comp
         GrowlModule,
         ProgressSpinnerModule,
         ConfirmDialogModule,
+        ChartModule,
         
         
         RouterModule.forRoot([
@@ -75,6 +85,7 @@ import { NewOwnerComponent } from './components/owners/components/new-owner.comp
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
+
             { path: 'properties', component: PropertiesComponent },
             { path: 'properties/new-property', component: PropertyDetailsComponent },
             { path: 'properties/property-details/:id', component: PropertyDetailsComponent },
@@ -88,17 +99,24 @@ import { NewOwnerComponent } from './components/owners/components/new-owner.comp
             { path: 'owners', component: OwnersComponent },
             { path: 'owners/owner-update/:id', component: NewOwnerComponent },
             { path: 'owners/owner-details/:id', component: NewOwnerComponent },
+
+            { path: 'reports/type-report', component: ReportsComponent },
+            { path: 'reports/properties-report', component: ReportsComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ],
     providers: [
         AddressesService,
         { provide: AddressesBackendService, useClass: HttpAddressesBackendService },
+
         PropertiesService,
         { provide: PropertiesBackendService, useClass: HttpPropertiesBackendService },
        
         OwnersService,
         { provide: OwnersBackendService, useClass: HttpOwnersBackendService },
+
+        ReportsService,
+        { provide: ReportsBackendService, useClass: HttpReportsBackendService },
     ]
 
 })
